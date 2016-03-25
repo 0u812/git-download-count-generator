@@ -9,6 +9,7 @@ project = raw_input("Enter Project name: ")
 request = Request('https://api.github.com/repos/'+user+'/'+project+'/releases')
 workbook = xlsxwriter.Workbook('exports/'+user+'-'+project+'.xlsx')
 worksheet = workbook.add_worksheet(project)
+worksheet_graph = workbook.add_worksheet('Status Chart')
 bold = workbook.add_format({'bold': True})
 chart = workbook.add_chart({'type': 'column'})
 worksheet.write('A1', 'Releases', bold)
@@ -35,11 +36,15 @@ else:
 			row += 1
 			continue
 	chart.add_series({
-		'categories': [project, first_col],
-		'values':     [project, second_col],
-		'line':       {'color': 'red'},
+		'categories': '='+project+'!$A$2:$A$'+str(row),
+		'values':     '='+project+'!$B$2:$B$'+str(row),
+		'line':       {'color': 'blue'},
 	})
-	worksheet.insert_chart('A17', chart)
+	chart.set_title ({'name': project+' Download Status'})
+	chart.set_x_axis({'name': 'Release version'})
+	chart.set_y_axis({'name': 'Download Count'})
+	chart.set_size({'x_scale': 2.5, 'y_scale': 3})
+	worksheet_graph.insert_chart('A1', chart)
 	print "Exported result saved in exports folder"
 
 finally:
