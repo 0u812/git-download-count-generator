@@ -16,21 +16,23 @@ row = 1
 col = 0
 
 try:
-	resp = urlopen(request)
+	response = urlopen(request)
 except HTTPError as e:
 	if e.code == 404:
 		print "No repository available"
 		worksheet.write(row, col, "No repository available")
 	else:
-		# 200
-		download_counts = json.loads(response.read())
-		for item in download_counts:
-			if 'tag_name' in item:
-				worksheet.write(row, col, item['tag_name'])
-				if item['assets']:
-					worksheet.write(row, col + 1, item['assets'][0]['download_count'])
-				row += 1
-				continue
-
+		raise
+else:
+	# 200
+	download_counts = json.loads(response.read())
+	for item in download_counts:
+		if 'tag_name' in item:
+			worksheet.write(row, col, item['tag_name'])
+			if item['assets']:
+				worksheet.write(row, col + 1, item['assets'][0]['download_count'])
+			row += 1
+			continue
+	print "Exported result saved in exports folder"
 finally:
 	workbook.close()
