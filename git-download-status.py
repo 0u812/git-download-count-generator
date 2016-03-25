@@ -5,7 +5,7 @@ import json
 from urllib2 import Request, urlopen, URLError, HTTPError
 
 user = raw_input("Enter User name: ")
-project = raw_input("Enter project name: ")
+project = raw_input("Enter Project name: ")
 request = Request('https://api.github.com/repos/'+user+'/'+project+'/releases')
 workbook = xlsxwriter.Workbook('exports/'+user+'-'+project+'.xlsx')
 worksheet = workbook.add_worksheet(project)
