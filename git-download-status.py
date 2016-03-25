@@ -39,9 +39,10 @@ else:
 		'categories': '='+project+'!$A$2:$A$'+str(row),
 		'values':     '='+project+'!$B$2:$B$'+str(row),
 		'line':       {'color': 'blue'},
+		'data_labels': {'value': True}
 	})
 	chart.set_title ({'name': project+' Download Status'})
-	chart.set_x_axis({'name': 'Release version'})
+	chart.set_x_axis({'name': 'Released version'})
 	chart.set_y_axis({'name': 'Download Count'})
 	chart.set_size({'x_scale': 2.5, 'y_scale': 3})
 	worksheet_graph.insert_chart('A1', chart)
