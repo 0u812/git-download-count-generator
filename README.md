@@ -1,6 +1,11 @@
 # GIT download count generator
 This is simple shell script to generate .xlsx using Git APIs
 
+##Prerequisits
+* Install xlsxwriter python lib
+
+    sudo easy_install XlsxWriter
+
 ##How to use
 * Clone the project
 
