@@ -2,10 +2,10 @@
 import xlsxwriter
 import json
 
-from urllib2 import Request, urlopen, URLError, HTTPError
+from urllib.request import Request, urlopen, URLError, HTTPError
 
-user = raw_input("Enter User name: ")
-project = raw_input("Enter Project name: ")
+user = input("Enter User name: ")
+project = input("Enter Project name: ")
 request = Request('https://api.github.com/repos/'+user+'/'+project+'/releases')
 workbook = xlsxwriter.Workbook('exports/'+user+'-'+project+'.xlsx')
 worksheet = workbook.add_worksheet(project)
@@ -21,7 +21,7 @@ try:
 	response = urlopen(request)
 except HTTPError as e:
 	if e.code == 404:
-		print "No repository available"
+		print("No repository available")
 		worksheet.write(row, col, "No repository available")
 	else:
 		raise
@@ -46,7 +46,7 @@ else:
 	chart.set_y_axis({'name': 'Download Count'})
 	chart.set_size({'x_scale': 2.5, 'y_scale': 3})
 	worksheet_graph.insert_chart('A1', chart)
-	print "Exported result saved in exports folder"
+	print("Exported result saved in exports folder")
 
 finally:
 	workbook.close()
