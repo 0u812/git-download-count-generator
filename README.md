@@ -12,9 +12,9 @@ This is simple shell script to save the download count of a GitHub repository to
 ## How to use
 
 * Clone the project
-
+```
     git clone https://github.com/dakshika/git-download-count-generator.git
-
+```
 * Run 
 
 ```
